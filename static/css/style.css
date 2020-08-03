@@ -1,0 +1,16 @@
+body {
+    color: #5F657F;
+}
+
+#welcome_block {
+    background: #EAEBEF;
+    border-radius: 25px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #2D3A5C;
+}
+
+.card-text {
+    color: black;
+}
