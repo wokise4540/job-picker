@@ -6,15 +6,15 @@ from .models import Vacansy
 
 
 def home_view(request):
-    form = FindForm()
-    return render(request, 'scraping/home.html', {'form': form})
+    find_form = FindForm()
+    return render(request, 'scraping/home.html', {'find_form': find_form})
 
 
 def list_view(request):
-    form = FindForm()
+    find_form = FindForm(request.GET or None)
     city = request.GET.get('city')
     language = request.GET.get('language')
-    context = {'city': city, 'language': language, 'form': form}
+    context = {'city': city, 'language': language, 'find_form': find_form}
     if city or language:
         _filter = {}
         if city:

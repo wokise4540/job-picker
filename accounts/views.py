@@ -52,10 +52,10 @@ def update_view(request):
                 user.save()
                 messages.success(request, 'Настройки обновлены!')
                 return redirect('accounts:update')
-        form = UserUpdateForm(
+        update_form = UserUpdateForm(
             initial={'city': user.city, 'language': user.language, 'send_email': user.send_email})
         return render(request, 'accounts/update.html',
-                      {'form': form, 'contact_form': contact_form})
+                      {'update_form': update_form, 'contact_form': contact_form})
     else:
         return redirect('accounts:login')
 

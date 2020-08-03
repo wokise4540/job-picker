@@ -14,12 +14,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>{% block title %} My Amazing Site {% endblock %}</title>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <title>{% block title %} Job Picker {% endblock %}</title>
 </head>
 <body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'home' %}">Job Picker</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: #FFFFFF">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">
+            <img src="{% static 'logo.svg' %}" width="30" height="30" class="d-inline-block align-top" alt="">
+            Code Work
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,23 +34,44 @@
             <ul class="navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == update_url %} active {% endif %}" href="{% url 'accounts:update' %}">Настройки</a>
+                        <a class="nav-link {% if request.path == update_url %} active {% endif %}"
+                           href="{% url 'accounts:update' %}">Настройки</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'accounts:logout' %}">Выйти</a>
                     </li>
                 {% else %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %} active {% endif %}" href="{% url 'accounts:login' %}">Войти</a>
+                        <a class="nav-link {% if request.path == login_url %} active {% endif %}"
+                           href="{% url 'accounts:login' %}">Войти</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == register_url %} active {% endif %}" href="{% url 'accounts:register' %}">Регистрация</a>
+                        <a class="nav-link {% if request.path == register_url %} active {% endif %}"
+                           href="{% url 'accounts:register' %}">Регистрация</a>
                     </li>
                 {% endif %}
             </ul>
         </div>
-    </nav>
-</div>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #2D3A5D;">
+    <div class="container">
+        <form  method="get" action="{% url 'list' %}" class="mx-auto form-inline my-3">
+            <div class="form-row">
+                {% for field in find_form %}
+                    <div class="form-group col-4 px-5">
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <div class="form-group col-4">
+                    <button type="submit" class="btn btn-info btn-block">Поиск</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>
+
 <div class="container">
     <div class="row">
         <div class="col-8 mx-auto my-3">
@@ -52,17 +79,17 @@
                 {% for message in messages %}
                     {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important:
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                          {{ message }}
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     {% else %}
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
-                          {{ message }}
-                          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
                     {% endif %}
                 {% endfor %}
